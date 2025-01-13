@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         datos.add(new Encapsulador(R.drawable.alonso, "Fernando Alonso", "Escuderia Actual: Aston Martin"));
         datos.add(new Encapsulador(R.drawable.carlossainz, "Carlos Sainz", "Escuderia Actual: Williams racing"));
         datos.add(new Encapsulador(R.drawable.lando, "Lando Norris", "Escuderia Actual: Mclaren F1 Team"));
-        datos.add(new Encapsulador(R.drawable.maxverstappen, "Max Verstappen", "Red Bull Racing"));
+        datos.add(new Encapsulador(R.drawable.maxverstappen, "Max Verstappen", "Escudería Actual Red Bull Racing"));
         datos.add(new Encapsulador(R.drawable.lewis, "Lewis Hamilton", "Escuderia Actual: Scuderia Ferrari"));
         datos.add(new Encapsulador(R.drawable.michael, "Michael Schumacher", "Retiro : 2012"));
         datos.add(new Encapsulador(R.drawable.sergio, "Sergio Pérez", "Retiro : 2024"));
