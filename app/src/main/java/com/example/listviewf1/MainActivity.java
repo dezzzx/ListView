@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         lista = findViewById(R.id.listView);
         texto = findViewById(R.id.textView);
 
-        // Crear datos
         ArrayList<Encapsulador> datos = new ArrayList<>();
         datos.add(new Encapsulador(R.drawable.alonso, "Fernando Alonso", "Escuderia Actual: Aston Martin"));
         datos.add(new Encapsulador(R.drawable.carlossainz, "Carlos Sainz", "Escuderia Actual: Williams racing"));
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         datos.add(new Encapsulador(R.drawable.lewis, "Lewis Hamilton", "Escuderia Actual: Scuderia Ferrari"));
         datos.add(new Encapsulador(R.drawable.michael, "Michael Schumacher", "Retiro : 2012"));
         datos.add(new Encapsulador(R.drawable.sergio, "Sergio Pérez", "Retiro : 2024"));
+        datos.add(new Encapsulador(R.drawable.valtteri, "Valtteri Bottas", "Escuderia Actual: Mercedes"));
 
         lista.setAdapter(new Adaptador(this, R.layout.entrada, datos) {
             @Override
