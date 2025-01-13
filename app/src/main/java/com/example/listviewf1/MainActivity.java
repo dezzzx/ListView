@@ -1,5 +1,7 @@
 package com.example.listviewf1;
 
+import static android.icu.lang.UCharacter.toUpperCase;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     miRadio.setOnClickListener(v -> {
                         if (radioButtonPulsado != null) radioButtonPulsado.setChecked(false);
                         radioButtonPulsado = (RadioButton) v;
-                        texto.setText("MARCADA UNA OPCIÓN");
+                        String nombre = toUpperCase(item.getTextoTitulo());
+                        texto.setText("MARCADA LA OPCION "+nombre);
                     });
                 }
             }
