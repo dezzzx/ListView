@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                cargarRegistros(s.toString());  // Llamar a cargarRegistros con el filtro
+                cargarRegistros(s.toString());
             }
 
             @Override
@@ -194,14 +194,13 @@ public class MainActivity extends AppCompatActivity {
         contenidos.clear();
         SQLiteDatabase db = dbHelper.open();
 
-        // Si el filtro está vacío, cargar todo
         String query;
         String[] args = null;
         if (filtro.isEmpty()) {
             query = "SELECT * FROM Contenido ORDER BY id " + orden;
         } else {
             query = "SELECT * FROM Contenido WHERE titulo LIKE ? ORDER BY id " + orden;
-            args = new String[]{"%" + filtro + "%"};  // Filtra aunque sea una parte del título
+            args = new String[]{"%" + filtro + "%"};
         }
 
         Cursor cursor = db.rawQuery(query, args);
