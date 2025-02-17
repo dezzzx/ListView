@@ -3,6 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <EditText
+        android:id="@+id/Buscador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar..."
+        android:padding="8dp"
+        android:layout_margin="16dp"/>
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

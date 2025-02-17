@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String orden = "ASC";
     private byte[] imagenBytes = null;
     private Context context;
-
+    private EditText buscador;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         boton = findViewById(R.id.buttonaaadir);
         botonBorrar = findViewById(R.id.buttonborrartodos);
         Ordenspinner = findViewById(R.id.spinnerOptions);
+        buscador = findViewById(R.id.Buscador);
 
         dbHelper = new SQLiteHelper(this);
         dbHelper.open();
@@ -83,19 +86,30 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"ASC", "DESC"});
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Ordenspinner.setAdapter(adapter);
+        buscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cargarRegistros(s.toString());  // Llamar a cargarRegistros con el filtro
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
         Ordenspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 orden = parent.getItemAtPosition(position).toString();
-                cargarRegistros();
+                cargarRegistros("");
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        cargarRegistros();
+        cargarRegistros("");
         boton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Ingresar Contenido");
@@ -115,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (imagenBytes != null && !titulo.isEmpty() && !contenido.isEmpty()) {
                     dbHelper.insert(imagenBytes, titulo, contenido);
-                    cargarRegistros();
+                    cargarRegistros("");
                 } else {
                     Toast.makeText(MainActivity.this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
                 }
@@ -152,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     dbHelper.update(contenido.getId(), nuevaImagenBytes, nuevoTitulo, nuevoContenido);
-                    cargarRegistros();
+                    cargarRegistros("");
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -170,16 +184,27 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Sí", (dialog, id) -> {
                     SQLiteHelper dbHelper = new SQLiteHelper(context);
                     dbHelper.deleteAll();
-                    cargarRegistros();
+                    cargarRegistros("");
                 })
                 .setNegativeButton("No", null)
                 .show();
     }
 
-    private void cargarRegistros() {
+    private void cargarRegistros(String filtro) {
         contenidos.clear();
         SQLiteDatabase db = dbHelper.open();
-        Cursor cursor = db.rawQuery("SELECT * FROM Contenido ORDER BY id " + orden, null);
+
+        // Si el filtro está vacío, cargar todo
+        String query;
+        String[] args = null;
+        if (filtro.isEmpty()) {
+            query = "SELECT * FROM Contenido ORDER BY id " + orden;
+        } else {
+            query = "SELECT * FROM Contenido WHERE titulo LIKE ? ORDER BY id " + orden;
+            args = new String[]{"%" + filtro + "%"};  // Filtra aunque sea una parte del título
+        }
+
+        Cursor cursor = db.rawQuery(query, args);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -196,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         }
         db.close();
 
-        contenidoAdapter.notifyDataSetChanged();
+        contenidoAdapter.notifyDataSetChanged();  // Refrescar la lista
     }
     private String guardarImagenEnAlmacenamientoInterno(int resourceId) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
