@@ -3,6 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contenido en orden :"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_column="0"
+            android:layout_marginStart="50dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical"/>
+
+        <Spinner
+            android:id="@+id/spinnerOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="center_vertical"/>
+    </GridLayout>
 
     <ListView
         android:id="@+id/listView"
@@ -10,12 +35,24 @@
         android:layout_height="0dp"
         android:layout_weight="5" />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/buttonaaadir"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Seleccione una opción"
-        android:gravity="center"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:text="Añadir"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
+    />
+    <Button
+        android:id="@+id/buttonborrartodos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:text="Borrar todo el contenido"
+
+    />
+
+
+
+
 </LinearLayout>
