@@ -177,18 +177,21 @@ public class MainActivity extends AppCompatActivity {
             imagePickerLauncher.launch(intent);
         });
     }
-    private void showDeleteConfirmationDialog() {
-        new android.app.AlertDialog.Builder(context)
-                .setMessage("¿Estás seguro de que quieres borrar todos los registros?")
-                .setCancelable(false)
+    public void showDeleteConfirmationDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this); // 'this' es el contexto aquí
+        builder.setMessage("¿Seguro que deseas eliminar?")
                 .setPositiveButton("Sí", (dialog, id) -> {
-                    SQLiteHelper dbHelper = new SQLiteHelper(context);
+                    SQLiteHelper dbHelper = new SQLiteHelper(this);
                     dbHelper.deleteAll();
                     cargarRegistros("");
                 })
-                .setNegativeButton("No", null)
-                .show();
+                .setNegativeButton("No", (dialog, id) -> {
+
+                });
+        builder.create().show();
     }
+
 
     private void cargarRegistros(String filtro) {
         contenidos.clear();
