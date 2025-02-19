@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showDeleteConfirmationDialog() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this); // 'this' es el contexto aquí
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Seguro que deseas eliminar?")
                 .setPositiveButton("Sí", (dialog, id) -> {
                     SQLiteHelper dbHelper = new SQLiteHelper(this);
