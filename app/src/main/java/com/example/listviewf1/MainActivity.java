@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner Ordenspinner;
     private String orden = "ASC";
     private byte[] imagenBytes = null;
-    private Context context;
     private EditText buscador;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
