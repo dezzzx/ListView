@@ -56,7 +56,7 @@ public class SQLiteHelper {
     public void insertdeserie(String imagen, String titulo, String contenido) {
         SQLiteDatabase db = open();
         ContentValues values = new ContentValues();
-        values.put("imagen", imagen);  // Ahora almacenamos la ruta como un String
+        values.put("imagen", imagen);
         values.put("titulo", titulo);
         values.put("contenido", contenido);
         db.insert("Contenido", null, values);
